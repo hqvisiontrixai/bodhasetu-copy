@@ -2,9 +2,6 @@ import AnimatedBackground from "@/components/AnimatedBackground";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
-import TechnologySection from "@/components/TechnologySection";
-import AnalyticsSection from "@/components/AnalyticsSection";
-import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
