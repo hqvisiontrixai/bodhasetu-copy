@@ -79,26 +79,62 @@ const FEATURES = [
 
 // ─── Visualizations ────────────────────────────────────────────────────────────
 function EngagementViz({ accent }: { accent: string }) {
-  const students = Array.from({ length: 35 }, (_, i) => ({ level: (Math.sin(i * 1.7) + 1) / 2, alert: [4, 12, 19, 28].includes(i) }));
+  const students = Array.from({ length: 35 }, (_, i) => ({
+    level: (Math.sin(i * 1.7) + 1) / 2,
+    alert: [4, 12, 19, 28].includes(i),
+  }));
+
   return (
     <div className="w-full max-w-xs">
-      <div className="flex items-center gap-2 mb-4">
-        <span className="flex items-center gap-1.5 text-[10px]" style={{ color: accent }}><span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: accent }} />LIVE · Room 204</span>
-      </div>
+      <style>{`
+        @keyframes eng-pulse { 0%,100% { opacity: 0.6; } 50% { opacity: 1; } }
+        .eng-dot { animation: eng-pulse var(--dur) ease-in-out infinite; }
+        @keyframes eng-alert { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+        .eng-alert { animation: eng-alert 2s ease-in-out infinite; }
+      `}</style>
+      {/* ...rest unchanged, but swap motion.div for plain div: */}
       <div className="grid gap-2.5" style={{ gridTemplateColumns: "repeat(7, 1fr)" }}>
         {students.map((s, i) => (
-          <motion.div key={i} animate={{ scale: s.alert ? [1, 1.15, 1] : 1, opacity: [0.6, 1, 0.6] }} transition={{ duration: 2 + s.level, repeat: Infinity, delay: i * 0.04 }}
-            className="aspect-square rounded-full" style={{ background: s.alert ? "rgba(198,67,32,0.7)" : `${accent}${Math.round((0.25 + s.level * 0.6) * 255).toString(16).padStart(2, "0")}`, boxShadow: s.alert ? `0 0 10px #C6432060` : "none" }} />
+          <div
+            key={i}
+            className={`aspect-square rounded-full ${s.alert ? "eng-alert" : "eng-dot"}`}
+            style={{
+              "--dur": `${2 + s.level}s`,
+              animationDelay: `${i * 0.04}s`,
+              background: s.alert
+                ? "rgba(198,67,32,0.7)"
+                : `${accent}${Math.round((0.25 + s.level * 0.6) * 255).toString(16).padStart(2, "0")}`,
+              boxShadow: s.alert ? `0 0 10px #C6432060` : "none",
+            } as React.CSSProperties}
+          />
         ))}
       </div>
       <div className="flex gap-5 mt-5">
-        {[["24", "Attentive", accent], ["5", "Drowsy", "#C64320"], ["6", "Distracted", "#B76A32"]].map(([v, l, c]) => (
-          <div key={l}><div className="font-display font-black text-xl" style={{ color: c }}>{v}</div><div className="text-[10px] text-[#98815D] uppercase tracking-widest">{l}</div></div>
-        ))}
-      </div>
+       {[["24", "Attentive", accent], ["5", "Drowsy", "#C64320"], ["6", "Distracted", "#B76A32"]].map(([v, l, c]) => (
+           <div key={l}><div className="font-display font-black text-xl" style={{ color: c }}>{v}</div><div className="text-[10px] text-[#98815D] uppercase tracking-widest">{l}</div></div>
+         ))}
+       </div>
     </div>
   );
 }
+//     <div className="w-full max-w-xs">
+//       <div className="flex items-center gap-2 mb-4">
+//         <span className="flex items-center gap-1.5 text-[10px]" style={{ color: accent }}><span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: accent }} />LIVE · Room 204</span>
+//       </div>
+//       <div className="grid gap-2.5" style={{ gridTemplateColumns: "repeat(7, 1fr)" }}>
+//         {students.map((s, i) => (
+//           <motion.div key={i} animate={{ scale: s.alert ? [1, 1.15, 1] : 1, opacity: [0.6, 1, 0.6] }} transition={{ duration: 2 + s.level, repeat: Infinity, delay: i * 0.04 }}
+//             className="aspect-square rounded-full" style={{ background: s.alert ? "rgba(198,67,32,0.7)" : `${accent}${Math.round((0.25 + s.level * 0.6) * 255).toString(16).padStart(2, "0")}`, boxShadow: s.alert ? `0 0 10px #C6432060` : "none" }} />
+//         ))}
+//       </div>
+//       <div className="flex gap-5 mt-5">
+//         {[["24", "Attentive", accent], ["5", "Drowsy", "#C64320"], ["6", "Distracted", "#B76A32"]].map(([v, l, c]) => (
+//           <div key={l}><div className="font-display font-black text-xl" style={{ color: c }}>{v}</div><div className="text-[10px] text-[#98815D] uppercase tracking-widest">{l}</div></div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
 
 function QuizViz({ accent }: { accent: string }) {
   const qs = ["What is Big-O of QuickSort?", "Define dynamic programming.", "Explain recursion base case.", "Compare BFS and DFS."];
@@ -236,11 +272,15 @@ function StackCard({ feature, index, total, progress }: { feature: typeof FEATUR
   const exitEnd = (index + 1) / total;
 
   // y position: slides up smoothly from 100vh
-  const y = useTransform(
-    progress,
-    [entryStart, entryEnd, exitStart, exitEnd],
-    ["100vh", "0vh", "0vh", "-10vh"]
-  );
+  // At the top of StackCard, add this:
+const windowHeight = typeof window !== "undefined" ? window.innerHeight : 800;
+
+// Then change:
+const y = useTransform(
+  progress,
+  [entryStart, entryEnd, exitStart, exitEnd],
+  [windowHeight, 0, 0, -windowHeight * 0.1]  // numbers, not strings
+);
 
   // scale: shrinks slightly as it gets covered by the next card
   const scale = useTransform(
@@ -266,7 +306,7 @@ function StackCard({ feature, index, total, progress }: { feature: typeof FEATUR
         opacity,
         transformOrigin: "top center",
         background: `linear-gradient(135deg, ${feature.bgFrom} 0%, #0A0A0A 100%)`,
-        boxShadow: "0 -20px 40px rgba(0,0,0,0.5)", // Shadow helps separation of stacked cards
+        boxShadow: "0 -10px 20px rgba(0,0,0,0.4)" // Shadow helps separation of stacked cards
       }}
     >
       {/* Accent top line */}
@@ -367,9 +407,9 @@ export default function FeaturesSection() {
 
       <ScrollStack
         useWindowScroll
-        itemDistance={160}
-        itemScale={0.04}
-        itemStackDistance={40}
+        itemDistance={180}
+itemStackDistance={48}
+itemScale={0.05}
         baseScale={0.9}
         rotationAmount={0}
         blurAmount={0} 
@@ -381,12 +421,15 @@ export default function FeaturesSection() {
           return (
             <ScrollStackItem key={feature.num}>
               <div
-                className="w-full max-w-7xl mx-auto rounded-3xl overflow-hidden"
-                style={{
-                  background: `linear-gradient(135deg, ${feature.bgFrom} 0%, #0A0A0A 100%)`,
-                  border: `1px solid ${feature.accent}20`,
-                }}
-              >
+  className="w-full max-w-7xl mx-auto rounded-3xl overflow-hidden will-change-transform"
+  style={{
+    transform: "translateZ(0)",
+    backfaceVisibility: "hidden",
+    WebkitFontSmoothing: "antialiased",
+    background: `linear-gradient(135deg, ${feature.bgFrom} 0%, #0A0A0A 100%)`,
+    border: `1px solid ${feature.accent}20`,
+  }}
+>
                 {/* Accent top line */}
                 <div
                   className="h-px w-full"
