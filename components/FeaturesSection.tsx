@@ -8,7 +8,7 @@ const FEATURES = [
   { num:"04", title:"Personalized\nStudy Roadmaps",         tag:"Adaptive Learning",      accent:"#2D5351", accent2:"#3D7270", body:"Weak topics are added to a personal To-Study list — with PPT-derived explanations, curated examples, practice problems, and a structured one-week completion timeline.", tech:["Personalization AI","Auto-Curriculum","LLM"], bgFrom:"#070f0e" },
   { num:"05", title:"Student Analytics\nDashboard",         tag:"Student Experience",     accent:"#A27B3D", accent2:"#C9A96E", body:"Every student gets a rich personal dashboard — performance graphs, subject analytics, attendance, quiz history, learning velocity, and anonymous percentile comparisons against classmates.", tech:["Real-time Charts","Percentile Graphs","Progress Tracking"], bgFrom:"#100e08" },
   { num:"06", title:"Teacher Insight\nDashboard",           tag:"Educator Intelligence",  accent:"#B76A32", accent2:"#D4834A", body:"Teachers see live engagement heatmaps, topic-level interaction data, flagged weak concepts, quiz analytics, and full class learning trajectories — without any manual data collection.", tech:["Heatmaps","Topic Analytics","AI Alerts","Class Reports"], bgFrom:"#0f0b07" },
-  { num:"07", title:"AI Mental\nWellness Support",          tag:"Student Wellbeing",      accent:"#2D5351", accent2:"#3D7270", body:"An empathetic AI companion available around the clock — supporting students through academic pressure, exam anxiety, and motivation dips with personalized, contextual guidance.", tech:["Conversational AI","Wellness NLP","Sentiment Analysis"], bgFrom:"#070f0e" },
+  // { num:"07", title:"AI Mental\nWellness Support",          tag:"Student Wellbeing",      accent:"#2D5351", accent2:"#3D7270", body:"An empathetic AI companion available around the clock — supporting students through academic pressure, exam anxiety, and motivation dips with personalized, contextual guidance.", tech:["Conversational AI","Wellness NLP","Sentiment Analysis"], bgFrom:"#070f0e" },
 ];
 
 const GLOBAL_CSS = `
@@ -308,7 +308,7 @@ export default function FeaturesSection() {
         </div>
         <h2 className="font-black leading-tight" style={{ fontSize:"clamp(2rem,5vw,4rem)" }}>
           Every Dimension of <br />
-          <span className="italic" style={{ background:"linear-gradient(90deg,#A27B3D,#C9A96E,#A27B3D)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>
+          <span className="italic text-[#B76A32]" style={{ WebkitTextStroke:"0.5px #B76A3220" }}>
             Student Intelligence.
           </span>
         </h2>

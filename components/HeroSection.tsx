@@ -362,10 +362,13 @@ export default function HeroSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="flex items-center gap-2 mb-8"
           >
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full glass-gold text-xs font-semibold text-[#C9A96E] tracking-widest uppercase">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#A27B3D] animate-pulse" />
-              visiontriX AI · Early Access
-            </div>
+
+            <div className="inline-flex items-center text-6xl font-medium text-[#C9A96E] uppercase mb-6">
+                   <div className="ea-panel-brand">
+            <span className="ea-brand-dot" />
+visiontriX AI · Early Access          </div>
+                </div>
+           
           </motion.div>
 
           {/* Headline */}
@@ -378,7 +381,7 @@ export default function HeroSection() {
           >
             <span className="text-cream ">Bodha Setu</span>
             <span className="block text-gradient-gold mt-1"> </span>
-            <span className="block text-cream/60 font-light text-[0.6em] mt-3 tracking-normal leading-snug">
+            <span className="block text-[#B76A32] font-light text-[0.6em] mt-3 tracking-normal leading-snug">
               Insights. <span className="italic">Redefined.</span>
             </span>
           </motion.h1>
@@ -405,7 +408,7 @@ export default function HeroSection() {
               id="hero-cta-button"
               className="relative group px-7 py-3.5 rounded-full font-semibold text-sm text-[#0A0A0A] overflow-hidden"
             >
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-gray-400 to-gray-200 cta-pulse" />
+              <div className="absolute inset-0 rounded-full bg-[#B76A32] cta-pulse" />
               <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
               <span className="relative flex items-center gap-2">
                 Sign up for Early Access

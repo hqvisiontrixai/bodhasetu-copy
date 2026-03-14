@@ -1,6 +1,6 @@
 import AnimatedBackground from "@/components/AnimatedBackground";
 import HeroSection from "@/components/HeroSection";
-import FeaturesSection from "@/components/FeaturesSection2";
+import FeaturesSection from "@/components/FeaturesSection";
 import Footer from "@/components/Footer";
 import Form from "@/components/Form";
 

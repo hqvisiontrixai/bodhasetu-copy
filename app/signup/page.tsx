@@ -136,9 +136,11 @@ export default function SignupPage() {
             >
               {/* Header */}
               <div className="text-center mb-10">
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-gold text-xs font-medium text-[#C9A96E] tracking-widest uppercase mb-6">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#A27B3D] animate-pulse" />
-                  Early Access
+                <div className="inline-flex items-center text-6xl font-medium text-[#C9A96E] uppercase mb-6">
+                   <div className="ea-panel-brand">
+            <span className="ea-brand-dot" />
+            Early Access
+          </div>
                 </div>
 
                 <h1 className="font-display font-black text-4xl text-cream mb-3">

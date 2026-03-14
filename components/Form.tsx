@@ -199,12 +199,12 @@ export default function Form() {
       <div className="ea-card">
         {/* Left panel */}
         <div className="ea-panel-left">
-          <div className="ea-panel-glow" />
-          <div className="ea-badge">Early Access</div>
+          {/* <div className="ea-panel-glow" /> */}
+          {/* <div className="ea-badge">Early Access</div> */}
 
           <h1 className="ea-headline">
             Claim your<br />
-            <span className="ea-gold-text">early seat.</span>
+            <span className="italic text-[#B76A32]" style={{ WebkitTextStroke:"0.5px #B76A3220" }}>early seat.</span>
           </h1>
 
           <p className="ea-subline">
@@ -329,6 +329,7 @@ export default function Form() {
               <span className="ea-spinner" />
             ) : (
               <>
+              
                 <span>Join the Early Access</span>
                 <svg viewBox="0 0 20 20" fill="none" className="ea-submit-arrow">
                   <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
@@ -622,7 +623,7 @@ const STYLES = `
     font-weight: 600;
     letter-spacing: 0.02em;
     color: #0A0A0A;
-    background: linear-gradient(135deg, #A27B3D, #C9A96E, #B76A32);
+    background: #B76A32;
     border: none;
     border-radius: 12px;
     cursor: pointer;
