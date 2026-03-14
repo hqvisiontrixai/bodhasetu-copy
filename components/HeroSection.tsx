@@ -376,10 +376,10 @@ export default function HeroSection() {
             className="font-display font-black leading-[0.92] tracking-tight mb-6"
             style={{ fontSize: "clamp(3rem, 6vw, 4.8rem)" }}
           >
-            <span className="text-cream">Bodha Setu</span>
+            <span className="text-cream ">Bodha Setu</span>
             <span className="block text-gradient-gold mt-1"> </span>
             <span className="block text-cream/60 font-light text-[0.6em] mt-3 tracking-normal leading-snug">
-              Insights. Redefined.
+              Insights. <span className="italic">Redefined.</span>
             </span>
           </motion.h1>
 

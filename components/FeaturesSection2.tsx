@@ -272,23 +272,44 @@ export default function FeaturesSection() {
   return (
     <section id="features" className="relative bg-[#0A0A0A] text-[#FAF8F6] py-24 px-4 md:px-10">
       <style dangerouslySetInnerHTML={{ __html: GLOBAL_CSS }} />
+{/* Header */}
+<div className="max-w-6xl mx-auto mb-14">
+  <div className="flex items-center gap-2 mb-5">
+    <span
+      className="w-1.5 h-1.5 rounded-full"
+      style={{
+        background: "#A27B3D",
+        animationName: "viz-pulse",
+        animationDuration: "2s",
+        animationIterationCount: "infinite",
+      }}
+    />
+    <span
+      className="text-[10px] font-semibold uppercase tracking-[0.18em]"
+      style={{ color: "#A27B3D" }}
+    >
+      7 Intelligent Features
+    </span>
+  </div>
 
-      {/* Header */}
-      <div className="max-w-6xl mx-auto mb-14">
-        <div className="flex items-center gap-2 mb-5">
-          <span className="w-1.5 h-1.5 rounded-full" style={{ background:"#A27B3D", animationName:"viz-pulse", animationDuration:"2s", animationIterationCount:"infinite" }} />
-          <span className="text-[10px] font-semibold uppercase tracking-[0.18em]" style={{ color:"#A27B3D" }}>7 Intelligent Features</span>
-        </div>
-        <h2
-          className="font-black leading-[1.0] tracking-tight"
-          style={{ fontSize:"clamp(2.2rem,5vw,4rem)", maxWidth:"600px" }}
-        >
-          Build Systems That<br />
-          <span className="italic" style={{ background:"linear-gradient(90deg,#A27B3D,#C9A96E,#B76A32)", WebkitBackgroundClip:"text", WebkitTextFillColor:"transparent", backgroundClip:"text" }}>
-            Think, Not Just React.
-          </span>
-        </h2>
-      </div>
+  <h2
+    className="font-black leading-[1.0] tracking-tight"
+    style={{ fontSize: "clamp(2.2rem,5vw,4rem)", maxWidth: "700px" }}
+  >
+    Every Dimension of{" "}
+    <span
+      className="italic"
+      style={{
+        background: "linear-gradient(90deg,#A27B3D,#C9A96E,#B76A32)",
+        WebkitBackgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+        backgroundClip: "text",
+      }}
+    >
+      Student Intelligence.
+    </span>
+  </h2>
+</div>
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
   {FEATURES.map((feature, index) => {

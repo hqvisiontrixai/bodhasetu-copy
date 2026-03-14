@@ -316,7 +316,7 @@ export default function Form() {
                               : "border-white/10 text-[#AC9F91] hover:border-white/20 hover:text-cream"
                           }`}
                         >
-                          <span className="text-xl">{role.icon}</span>
+                          {/* <span className="text-xl">{role.icon}</span> */}
                           <span className="text-xs">{role.label}</span>
                         </button>
                       ))}
