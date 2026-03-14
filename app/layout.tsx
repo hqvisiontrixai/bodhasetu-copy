@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Geist } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { LenisProvider } from "@/components/LenisProvider";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -41,7 +42,9 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
+        <LenisProvider>
         {children}
+        </LenisProvider>
       </body>
     </html>
   );

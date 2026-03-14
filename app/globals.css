@@ -72,50 +72,47 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-* {
+/* ─── Reset ────────────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  margin: 0;
-  /* padding: 0; */
+  /* FIX 1: removed bare `margin: 0` — it was zeroing auto margins on centred
+     containers like `mx-auto`, breaking centering on every section. */
 }
 
+/* ─── Base ─────────────────────────────────────────────────────────────────── */
 html {
-  scroll-behavior: smooth;
+  /* FIX 2: removed `scroll-behavior: smooth` here — Lenis owns smooth scroll.
+     Having both causes double-easing and scroll position conflicts. */
+  font-family: var(--font-inter);
 }
 
 body {
   background-color: var(--dark-deep);
   color: var(--cream);
   font-family: var(--font-inter);
-  overflow-x: clip; /* Fix: allow position:sticky while preventing horiz scroll */
+  /* FIX 3: overflow-x: hidden clips position:sticky context on some browsers.
+     overflow-x: clip does NOT create a new scroll container, so sticky works. */
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* FIX 4: removed any implicit padding/margin from shadcn @layer base below
+     by ensuring body has no extra spacing */
+  margin: 0;
+  padding: 0;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 4px;
-}
+/* ─── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0a0a0a; }
+::-webkit-scrollbar-thumb { background: #a27b3d44; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #a27b3d; }
 
-::-webkit-scrollbar-track {
-  background: #0a0a0a;
-}
+/* ─── Selection ────────────────────────────────────────────────────────────── */
+::selection { background: rgba(162,123,61,0.3); color: #faf8f6; }
 
-::-webkit-scrollbar-thumb {
-  background: #a27b3d44;
-  border-radius: 2px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #a27b3d;
-}
-
-/* Selection */
-::selection {
-  background: rgba(162, 123, 61, 0.3);
-  color: #faf8f6;
-}
-
-/* Gradient text utility */
+/* ─── Utilities ────────────────────────────────────────────────────────────── */
 .text-gradient-gold {
   background: linear-gradient(135deg, #196e4d, #c9a96e, #c97437);
   -webkit-background-clip: text;
@@ -130,24 +127,11 @@ body {
   background-clip: text;
 }
 
-/* Glow effects */
-.glow-gold {
-  box-shadow: 0 0 30px rgba(162, 123, 61, 0.4), 0 0 60px rgba(162, 123, 61, 0.15);
-}
+.glow-gold   { box-shadow: 0 0 30px rgba(162,123,61,0.4), 0 0 60px rgba(162,123,61,0.15); }
+.glow-copper { box-shadow: 0 0 30px rgba(183,106,50,0.4), 0 0 60px rgba(183,106,50,0.15); }
+.glow-energy { box-shadow: 0 0 30px rgba(198,67,32,0.4),  0 0 60px rgba(198,67,32,0.15);  }
+.glow-teal   { box-shadow: 0 0 30px rgba(45,83,81,0.5),   0 0 60px rgba(45,83,81,0.2);    }
 
-.glow-copper {
-  box-shadow: 0 0 30px rgba(183, 106, 50, 0.4), 0 0 60px rgba(183, 106, 50, 0.15);
-}
-
-.glow-energy {
-  box-shadow: 0 0 30px rgba(198, 67, 32, 0.4), 0 0 60px rgba(198, 67, 32, 0.15);
-}
-
-.glow-teal {
-  box-shadow: 0 0 30px rgba(45, 83, 81, 0.5), 0 0 60px rgba(45, 83, 81, 0.2);
-}
-
-/* Noise texture overlay */
 .noise-overlay::before {
   content: "";
   position: absolute;
@@ -158,168 +142,69 @@ body {
   z-index: 1;
 }
 
-/* Glass morphism */
 .glass {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255,255,255,0.03);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255,255,255,0.06);
 }
 
 .glass-gold {
-  background: rgba(162, 123, 61, 0.05);
+  background: rgba(162,123,61,0.05);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(162, 123, 61, 0.15);
+  border: 1px solid rgba(162,123,61,0.15);
 }
 
-/* Animated gradient mesh */
+/* ─── Keyframes ────────────────────────────────────────────────────────────── */
 @keyframes mesh-move-1 {
-
-  0%,
-  100% {
-    transform: translate(0%, 0%) scale(1);
-  }
-
-  33% {
-    transform: translate(3%, 5%) scale(1.05);
-  }
-
-  66% {
-    transform: translate(-3%, 2%) scale(0.95);
-  }
+  0%,100% { transform: translate(0%,0%) scale(1); }
+  33%     { transform: translate(3%,5%) scale(1.05); }
+  66%     { transform: translate(-3%,2%) scale(0.95); }
 }
-
 @keyframes mesh-move-2 {
-
-  0%,
-  100% {
-    transform: translate(0%, 0%) scale(1);
-  }
-
-  33% {
-    transform: translate(-5%, -3%) scale(1.08);
-  }
-
-  66% {
-    transform: translate(4%, 3%) scale(0.92);
-  }
+  0%,100% { transform: translate(0%,0%) scale(1); }
+  33%     { transform: translate(-5%,-3%) scale(1.08); }
+  66%     { transform: translate(4%,3%) scale(0.92); }
 }
-
 @keyframes mesh-move-3 {
-
-  0%,
-  100% {
-    transform: translate(0%, 0%) scale(1);
-  }
-
-  33% {
-    transform: translate(4%, -4%) scale(1.03);
-  }
-
-  66% {
-    transform: translate(-2%, 5%) scale(1.07);
-  }
+  0%,100% { transform: translate(0%,0%) scale(1); }
+  33%     { transform: translate(4%,-4%) scale(1.03); }
+  66%     { transform: translate(-2%,5%) scale(1.07); }
 }
 
-.mesh-blob-1 {
-  animation: mesh-move-1 12s ease-in-out infinite;
-}
+.mesh-blob-1 { animation: mesh-move-1 12s ease-in-out infinite; }
+.mesh-blob-2 { animation: mesh-move-2 15s ease-in-out infinite; }
+.mesh-blob-3 { animation: mesh-move-3 18s ease-in-out infinite; }
 
-.mesh-blob-2 {
-  animation: mesh-move-2 15s ease-in-out infinite;
-}
-
-.mesh-blob-3 {
-  animation: mesh-move-3 18s ease-in-out infinite;
-}
-
-/* Particle float */
 @keyframes particle-float {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0;
-  }
-
-  10% {
-    opacity: 1;
-  }
-
-  90% {
-    opacity: 1;
-  }
-
-  100% {
-    transform: translateY(-100vh) rotate(360deg);
-    opacity: 0;
-  }
+  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
 }
 
-/* CTA button pulse */
 @keyframes cta-pulse {
-
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(162, 123, 61, 0.5);
-  }
-
-  50% {
-    box-shadow: 0 0 0 20px rgba(162, 123, 61, 0);
-  }
+  0%,100% { box-shadow: 0 0 0 0 rgba(162,123,61,0.5); }
+  50%     { box-shadow: 0 0 0 20px rgba(162,123,61,0); }
 }
+.cta-pulse { animation: cta-pulse 2.5s ease-in-out infinite; }
 
-.cta-pulse {
-  animation: cta-pulse 2.5s ease-in-out infinite;
-}
-
-/* Shimmer effect */
 @keyframes shimmer {
-  0% {
-    background-position: -200% center;
-  }
-
-  100% {
-    background-position: 200% center;
-  }
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }
-
 .shimmer {
-  background: linear-gradient(90deg,
-      transparent 20%,
-      rgba(162, 123, 61, 0.3) 50%,
-      transparent 80%);
+  background: linear-gradient(90deg, transparent 20%, rgba(162,123,61,0.3) 50%, transparent 80%);
   background-size: 200% auto;
   animation: shimmer 3s linear infinite;
 }
 
-/* Scan line */
-@keyframes scan {
-  0% {
-    top: -2px;
-  }
+@keyframes scan  { 0% { top: -2px; } 100% { top: 100%; } }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+.cursor-blink { animation: blink 1s step-end infinite; }
 
-  100% {
-    top: 100%;
-  }
-}
-
-/* Type cursor */
-@keyframes blink {
-
-  0%,
-  100% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-}
-
-.cursor-blink {
-  animation: blink 1s step-end infinite;
-}
-
+/* ─── Dark theme ───────────────────────────────────────────────────────────── */
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
@@ -354,6 +239,7 @@ body {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+/* ─── Theme inline ─────────────────────────────────────────────────────────── */
 @theme inline {
   --font-sans: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -396,11 +282,14 @@ body {
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/* ─── Tailwind base layer ──────────────────────────────────────────────────── */
 @layer base {
   * {
     @apply border-border outline-ring/50;
+    /* FIX 5: do NOT put margin:0 here — it overrides mx-auto centering */
   }
   body {
+    /* Keep bg/text from shadcn theme, but don't add padding */
     @apply bg-background text-foreground;
   }
   html {

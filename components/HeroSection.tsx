@@ -408,7 +408,7 @@ export default function HeroSection() {
               <div className="absolute inset-0 rounded-full bg-gradient-to-r from-gray-400 to-gray-200 cta-pulse" />
               <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
               <span className="relative flex items-center gap-2">
-                Get the Early Access
+                Sign up for Early Access
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
                   className="group-hover:translate-x-0.5 transition-transform">
                   <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
@@ -432,20 +432,6 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom scroll cue */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 z-20"
-      >
-        <span className="text-[10px] text-[#98815D] tracking-widest uppercase">Scroll</span>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-px h-8 bg-gradient-to-b from-[#A27B3D]/60 to-transparent rounded-full"
-        />
-      </motion.div>
     </section>
   );
 }

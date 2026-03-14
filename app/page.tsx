@@ -1,17 +1,14 @@
 import AnimatedBackground from "@/components/AnimatedBackground";
-import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
-import FeaturesSection from "@/components/FeaturesSection";
+import FeaturesSection from "@/components/FeaturesSection2";
 import Footer from "@/components/Footer";
+import Form from "@/components/Form";
 
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-x-clip">
       {/* Persistent animated canvas background */}
       <AnimatedBackground />
-
-      {/* Navigation */}
-      <Navbar />
 
       {/* Page content */}
       <div className="relative z-10">
@@ -27,17 +24,10 @@ export default function Home() {
         {/* Divider */}
         <div className="h-px bg-gradient-to-r from-transparent via-[#B76A32]/20 to-transparent mx-6 md:mx-20" />
 
-        {/* Technology Stack */}
-        {/* <TechnologySection /> */}
+        <Form />
 
         {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-[#2D5351]/20 to-transparent mx-6 md:mx-20" />
-
-        {/* Analytics / GlitchGrid Demo */}
-        {/* <AnalyticsSection /> */}
-
-        {/* Final CTA */}
-        {/* <CTASection /> */}
+        <div className="h-px bg-gradient-to-r from-transparent via-[#B76A32]/20 to-transparent mx-6 md:mx-20" />
 
         {/* Footer */}
         <Footer />
