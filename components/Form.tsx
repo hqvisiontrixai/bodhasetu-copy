@@ -165,11 +165,14 @@ export default function Form() {
             </svg>
           </div>
 
-          <div className="ea-success-tag">Early Access Confirmed</div>
+          <div className="ea-panel-brand">
+            <span className="ea-brand-dot" />
+            Early Access Confirmed
+          </div>
 
           <h2 className="ea-success-title">
             You're in,<br />
-            <span className="ea-gold-text">{form.full_name.split(" ")[0]}.</span>
+            <span className="text-[#B76A32] italic font-semibold">{form.full_name.split(" ")[0]}.</span>
           </h2>
 
           <p className="ea-success-body">
@@ -179,7 +182,7 @@ export default function Form() {
           <div className="ea-queue-card">
             <div className="ea-queue-label">Your position in queue</div>
             <div className="ea-queue-number">
-              #<QueueCounter target={queueNum} />
+              #<QueueCounter target={queueNum+55} />
             </div>
             <div className="ea-queue-sub">We'll reach out to you shortly at <strong>{form.email}</strong></div>
           </div>
@@ -745,7 +748,7 @@ const STYLES = `
     font-size: 48px;
     font-weight: 900;
     letter-spacing: -0.03em;
-    background: linear-gradient(90deg, #A27B3D, #C9A96E);
+    background: linear-gradient(90deg, #A27B3D, #b76a32);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
