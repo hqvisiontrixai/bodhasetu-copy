@@ -73,7 +73,7 @@ function QueueCounter({ target }: { target: number }) {
 // ─── Main component ───────────────────────────────────────────────────────
 export default function Form() {
   const [form, setForm] = useState<FormData>({
-    full_name: "", email: "", institution: "", referral_source: "", sector: "", role: "",
+    full_name: "", email: "", institution: "", referral_source: "", role: "",
   });
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [loading, setLoading] = useState(false);
