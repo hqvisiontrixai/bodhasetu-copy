@@ -8,7 +8,7 @@ export default function SegmintFooter() {
         {/* Brand */}
         <span className="block text-[clamp(40px,8vw,80px)] font-bold text-[#d8d6d3] tracking-tighter uppercase leading-[0.75]">
           <span className="block">VisiontriX</span>
-          <span className="block mt-2 text-[#A27B3D]">AI</span>
+          <span className="block mt-2 text-[#B76A32]">AI</span>
         </span>
 
         {/* Tagline */}

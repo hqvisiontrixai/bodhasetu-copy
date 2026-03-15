@@ -457,12 +457,13 @@ const STYLES = `
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-top: 40px;
+    margin-top: auto;
     font-family: 'JetBrains Mono', monospace;
     font-size: 10px;
     color: #4a3b2a;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    text-align: left;
   }
   .ea-brand-dot { width: 5px; height: 5px; border-radius: 50%; background: #A27B3D; opacity: 0.5; }
 
