@@ -18,6 +18,11 @@ export const metadata: Metadata = {
     "engagement detection",
     "visiontriX AI",
   ],
+  icons: {
+    icon: "/visiontrix_logo.png",
+    shortcut: "/visiontrix_logo.png",
+    apple: "/visiontrix_logo.png",
+  },
   openGraph: {
     title: "Bodha Setu — Where AI Understands Learning",
     description:
