@@ -84,23 +84,32 @@ export default function DotMatrix() {
           const x = (col + 0.5) * cellW;
           const y = (row + 0.5) * cellH;
 
-          // Base pulse
-          const baseBrightness = 0.07 + Math.sin(states[row][col].phase + time * 0.7) * 0.04;
+          // ── CHANGED: diagonal sweep wave so ALL dots shimmer uniformly ──
+          const diag = (col / GRID_COLS + row / GRID_ROWS) * Math.PI;
+          const wave1 = Math.sin(states[row][col].phase + time * 0.8 + diag) * 0.5 + 0.5;
+          const wave2 = Math.sin(states[row][col].phase * 1.3 + time * 0.4 - diag * 0.5) * 0.5 + 0.5;
+          const baseBrightness = 0.12 + wave1 * 0.18 + wave2 * 0.10;
+          // ── END CHANGE ──
+
           let brightness = baseBrightness;
           let r = 80, g = 70, b = 60;
 
-          // Mouse proximity
-          const mx = mouse.current.x;
-          const my = mouse.current.y;
+          // Mouse proximity — scale canvas coords to match CSS display size
+          const scaleX = dimensions.w / (canvas.getBoundingClientRect().width || dimensions.w);
+          const scaleY = dimensions.h / (canvas.getBoundingClientRect().height || dimensions.h);
+          const mx = mouse.current.x * scaleX;
+          const my = mouse.current.y * scaleY;
           const distMouse = Math.sqrt((x - mx) ** 2 + (y - my) ** 2);
-          const mouseRadius = 120;
+          const mouseRadius = Math.min(dimensions.w, dimensions.h) * 0.35; // ~35% of shorter side
           if (distMouse < mouseRadius) {
-            const influence = 1 - distMouse / mouseRadius;
-            brightness += influence * 0.8;
+            // smooth cubic falloff: bright at center, feathers to zero at edge
+            const t = 1 - distMouse / mouseRadius;
+            const influence = t * t * (3 - 2 * t); // smoothstep
+            brightness += influence * 0.9;
             const mc = COLORS[1]; // copper on hover
-            r = mc[0];
-            g = mc[1];
-            b = mc[2];
+            r = Math.round(r + (mc[0] - r) * influence);
+            g = Math.round(g + (mc[1] - g) * influence);
+            b = Math.round(b + (mc[2] - b) * influence);
           }
 
           // Ripple influence
@@ -143,11 +152,11 @@ export default function DotMatrix() {
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
+      // Store CSS-space coords; render loop scales to canvas resolution
       mouse.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-      // Trigger ripple on move occasionally
       if (Math.random() < 0.05) {
-        const col = Math.floor((e.clientX - rect.left) / cellW);
-        const row = Math.floor((e.clientY - rect.top) / cellH);
+        const col = Math.floor((e.clientX - rect.left) / (rect.width / GRID_COLS));
+        const row = Math.floor((e.clientY - rect.top) / (rect.height / GRID_ROWS));
         propagate(
           Math.max(0, Math.min(GRID_ROWS - 1, row)),
           Math.max(0, Math.min(GRID_COLS - 1, col)),

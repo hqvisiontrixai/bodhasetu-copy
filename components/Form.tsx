@@ -28,9 +28,8 @@ const ROLES: { value: Role; label: string; icon: string }[] = [
 interface FormData {
   full_name: string;
   email: string;
-  contact: string;
+  institution: string;
   referral_source: string;
-  sector: string;
   role: Role | "";
 }
 
@@ -53,15 +52,9 @@ type FormState = {
   referral_source: string;
 };
 
-const SECTOR_OPTIONS = [
-  { value: "college",      label: "College / University" },
-  { value: "coaching",     label: "Coaching Institute" },
-  { value: "tuition",      label: "Tuition Centre" },
-  { value: "school",       label: "School" },
-  { value: "online_meet",  label: "Online / Remote" },
-];
 
-// ─── Animated counter for queue number ───────────────────────────────────────
+
+// ─── Animated counter for queue number ───────────────────────────────────
 function QueueCounter({ target }: { target: number }) {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -77,10 +70,10 @@ function QueueCounter({ target }: { target: number }) {
   return <span>{count.toLocaleString()}</span>;
 }
 
-// ─── Main component ───────────────────────────────────────────────────────────
+// ─── Main component ───────────────────────────────────────────────────────
 export default function Form() {
   const [form, setForm] = useState<FormData>({
-    full_name: "", email: "", contact: "", referral_source: "", sector: "", role: "",
+    full_name: "", email: "", institution: "", referral_source: "", sector: "", role: "",
   });
   const [errors, setErrors] = useState<Partial<FormData>>({});
   const [loading, setLoading] = useState(false);
@@ -96,15 +89,15 @@ export default function Form() {
     const e: Partial<FormData> = {};
     if (!form.full_name.trim())       e.full_name       = "Required";
     if (!form.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) e.email = "Valid email required";
-    if (!form.contact.match(/^\+?[\d\s\-()]{7,15}$/))    e.contact = "Valid number required";
+    if (!form.institution.trim())     e.institution     = "Required";
     if (!form.referral_source)        e.referral_source = "Please select one";
-    if (!form.sector)                 e.sector          = "Please select one";
+    // if (!form.sector)                 e.sector          = "Please select one";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     if (!validate()) return;
     setLoading(true);
     try {
@@ -113,13 +106,15 @@ export default function Form() {
         .insert([{
           full_name:       form.full_name.trim(),
           email:           form.email.trim().toLowerCase(),
-          contact:         form.contact.trim(),
+          institution:    form.institution.trim(),
           referral_source: form.referral_source,
-          sector:          form.sector,
+          role:           form.role,
           created_at:      new Date().toISOString(),
         }])
         .select("id")
         .single();
+        console.log("SUPABASE RESPONSE:", { data, error });
+
 
       if (error) throw error;
 
@@ -131,6 +126,7 @@ export default function Form() {
       setQueueNum(count ?? 1);
       setSubmitted(true);
     } catch (err: any) {
+      console.error("Supabase insert error:", err);
       // Handle duplicate email gracefully
       if (err?.code === "23505") {
         setErrors({ email: "This email is already registered!" });
@@ -140,6 +136,11 @@ export default function Form() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSubmitClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    handleSubmit();
   };
 
   const set = (key: keyof FormData, val: string) => {
@@ -179,13 +180,7 @@ export default function Form() {
             <div className="ea-queue-sub">We'll reach out to you shortly at <strong>{form.email}</strong></div>
           </div>
 
-          <div className="ea-success-sectors">
-            {SECTOR_OPTIONS.map(s => (
-              <span key={s.value} className={`ea-sector-chip ${form.sector === s.value ? "ea-sector-chip--active" : ""}`}>
-                {s.label}
-              </span>
-            ))}
-          </div>
+          
         </div>
       </div>
     );
@@ -257,19 +252,19 @@ export default function Form() {
           </div>
 
           {/* Contact */}
-          <div className={`ea-field ${focused === "contact" ? "ea-field--focused" : ""} ${errors.contact ? "ea-field--error" : form.contact ? "ea-field--filled" : ""}`}>
+          <div className={`ea-field ${focused === "institution" ? "ea-field--focused" : ""} ${errors.institution ? "ea-field--error" : form.institution ? "ea-field--filled" : ""}`}>
             <label className="ea-label">Institution / Organization</label>
             <input
               className="ea-input"
               type="text"
               placeholder="IIT Delhi, DPS, Sunrise Academy..."
-              value={form.contact}
-              onChange={e => set("contact", e.target.value)}
-              onFocus={() => setFocused("contact")}
+              value={form.institution}
+              onChange={e => set("institution", e.target.value)}
+              onFocus={() => setFocused("institution")}
               onBlur={() => setFocused(null)}
               autoComplete="organization"
             />
-            {errors.contact && <span className="ea-error">{errors.contact}</span>}
+            {errors.institution && <span className="ea-error">{errors.institution}</span>}
           </div>
 
           {/* Referral source */}
