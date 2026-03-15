@@ -2,6 +2,7 @@
 import { useRef, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import SlideInButton from "./SlideInButton";
 
 // ---------------------------------------------------------------------------
 // Bridge particle canvas
@@ -352,7 +353,7 @@ export default function HeroSection() {
       {/* ------------------------------------------------------------------ */}
       {/* LEFT — Content                                                      */}
       {/* ------------------------------------------------------------------ */}
-      <div className="relative z-20 w-full max-w-7xl mx-auto px-8 md:px-16 pt-24 pb-16">
+      <div className="relative z-20 w-full max-w-[1440px] mx-auto px-4 md:px-10 pt-24 pb-16">
         <div className="max-w-xl">
 
           {/* Badge */}
@@ -403,23 +404,7 @@ visiontriX AI · Early Access          </div>
             transition={{ duration: 0.6, delay: 0.52 }}
             className="flex flex-wrap items-center gap-4 mb-14"
           >
-            <Link
-              href="/signup"
-              id="hero-cta-button"
-              className="relative group px-7 py-3.5 rounded-full font-semibold text-sm text-[#0A0A0A] overflow-hidden"
-            >
-              <div className="absolute inset-0 rounded-full bg-[#B76A32] cta-pulse" />
-              <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-10 transition-opacity" />
-              <span className="relative flex items-center gap-2">
-                Sign up for Early Access
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-                  className="group-hover:translate-x-0.5 transition-transform">
-                  <path d="M2 7h10M7 2l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              </span>
-            </Link>
-
-
+            <SlideInButton text="Sign up for Early Access" href="/signup" />
           </motion.div>
 
           

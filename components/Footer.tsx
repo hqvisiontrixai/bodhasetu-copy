@@ -15,18 +15,22 @@ export default function SegmintFooter() {
         <div className="hidden md:flex gap-4 max-w-[400px] font-mono">
           <span className="text-[20px] text-[#FAF8F6] font-bold">—</span>
           <p className="text-[11px] uppercase tracking-[0.15em] leading-relaxed text-[#FAF8F6] font-semibold">
-            MARKETING APPROACH IN <br />
-            WEBSITE DEVELOPMENT <br />
-            WITH OUTSTANDING DESIGN
+            Understanding Every Student,<br />
+            In Real Time.
           </p>
         </div>
 
         {/* CTA */}
         <nav className="flex flex-col items-end gap-2 font-mono text-[#FAF8F6]">
-          <a href="#" className="text-[10px] uppercase tracking-widest opacity-70 hover:opacity-100 transition-opacity">
+          <span className="text-[10px] uppercase tracking-widest opacity-70">
             Interested to start a project with us?
-          </a>
-          <a href="#" className="text-[10px] font-bold uppercase tracking-widest hover:opacity-70 transition-opacity">
+          </span>
+          <a 
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=visiontrixai@gmail.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-[10px] font-bold uppercase tracking-widest hover:opacity-70 transition-opacity"
+          >
             Let's talk →
           </a>
         </nav>

@@ -304,7 +304,7 @@ export default function FeaturesSection() {
       <div className="max-w-5xl mx-auto text-center py-15 px-6">
         <div className="flex items-center justify-center gap-2 mb-4">
           <span className="w-1.5 h-1.5 rounded-full" style={{ background:"#A27B3D", animationName:"viz-pulse", animationDuration:"2s", animationIterationCount:"infinite" }} />
-          <span className="text-[10px] font-semibold uppercase tracking-widest" style={{ color:"#A27B3D" }}>7 Intelligent Features</span>
+          <span className="text-[14px] font-semibold uppercase tracking-widest" style={{ color:"#A27B3D" }}>6 Intelligent Features</span>
         </div>
         <h2 className="font-black leading-tight" style={{ fontSize:"clamp(2rem,5vw,4rem)" }}>
           Every Dimension of <br />

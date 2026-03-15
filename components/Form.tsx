@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
+import SlideInButton from "./SlideInButton";
 
 // ─── Supabase client (lazy) ───────────────────────────────────────────────────
 // Created on demand so a missing env var doesn't crash the page at load time.
@@ -326,19 +327,14 @@ export default function Form() {
                   </div>
 
           {/* Submit */}
-          <button type="submit" className={`ea-submit ${loading ? "ea-submit--loading" : ""}`} disabled={loading}>
-            {loading ? (
-              <span className="ea-spinner" />
-            ) : (
-              <>
-              
-                <span>Join the Early Access</span>
-                <svg viewBox="0 0 20 20" fill="none" className="ea-submit-arrow">
-                  <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-                </svg>
-              </>
-            )}
-          </button>
+          <div className="mt-6 w-full flex">
+            <SlideInButton 
+              type="submit" 
+              text="Join the Early Access" 
+              disabled={loading}
+              fullWidth
+            />
+          </div>
 
           <p className="ea-disclaimer">
             No spam. No credit card. We'll only reach out when your slot opens.
