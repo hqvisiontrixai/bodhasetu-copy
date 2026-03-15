@@ -2,13 +2,16 @@
 import { useState, useRef, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 
-
-// ─── Supabase client ──────────────────────────────────────────────────────────
-// Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to your .env.local
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+// ─── Supabase client (lazy) ───────────────────────────────────────────────────
+// Created on demand so a missing env var doesn't crash the page at load time.
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key || url.includes("placeholder")) {
+    throw new Error("Supabase is not configured. Please add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to .env.local");
+  }
+  return createClient(url, key);
+}
 type Role = "student" | "teacher" | "admin";
 const ROLES: { value: Role; label: string; icon: string }[] = [
   { value: "student", label: "Student", icon: "📚" },
@@ -108,6 +111,7 @@ export default function Form() {
     if (!validate()) return;
     setLoading(true);
     try {
+      const supabase = getSupabase();
       const { data, error } = await supabase
         .from("early_access_signups")
         .insert([{
