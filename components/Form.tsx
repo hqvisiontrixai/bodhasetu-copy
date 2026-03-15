@@ -588,7 +588,7 @@ const STYLES = `
   .ea-dropdown-item:hover { background: rgba(162,123,61,0.08); color: #FAF8F6; }
   .ea-dropdown-item--active { color: #C9A96E; background: rgba(162,123,61,0.06); }
 
-  /* ── Sector pills ── */
+ 
   .ea-pills { display: flex; flex-wrap: wrap; gap: 8px; }
   .ea-pill {
     padding: 7px 14px;
