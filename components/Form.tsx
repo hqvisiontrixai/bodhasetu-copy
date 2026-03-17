@@ -177,7 +177,7 @@ export default function Form() {
           </h2>
 
           <p className="ea-success-body">
-            Congratulations on submitting the form. You are now in the queue for early access to Bodha Setu.
+            Congratulations on submitting the form. You are now in the queue for early access to Glint IQ.
           </p>
 
           <div className="ea-queue-card">
@@ -211,12 +211,12 @@ export default function Form() {
           </h1>
 
           <p className="ea-subline">
-            Bodha Setu is launching soon. Join the waitlist and be among the first institutions to experience AI-powered classroom intelligence.
+            Glint IQ is launching soon. Join the waitlist and be among the first institutions to experience AI-powered classroom intelligence.
           </p>
 
           <div className="ea-panel-brand">
             <span className="ea-brand-dot" />
-            visiontriX AI · Bodha Setu
+            visiontriX AI · Glint IQ
           </div>
         </div>
 

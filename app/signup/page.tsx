@@ -87,7 +87,7 @@ export default function SignupPage() {
             strokeLinecap="round"
           />
         </svg>
-        Back to Bodha Setu
+        Back to Glint IQ
       </Link>
 
       <div className="relative z-10 w-full max-w-7xl">
@@ -112,7 +112,7 @@ export default function SignupPage() {
               </h2>
 
               <p className="text-[#AC9F91] text-lg mb-2">
-                Welcome to the Bodha Setu early access waitlist.
+                Welcome to the Glint IQ early access waitlist.
               </p>
 
               <p className="text-sm text-[#98815D] mb-10">
@@ -144,7 +144,7 @@ export default function SignupPage() {
                 </div>
 
                 <h1 className="font-display font-black text-4xl text-cream mb-3">
-                  Join Bodha Setu
+                  Join Glint IQ
                 </h1>
 
                 <p className="text-[#AC9F91] text-sm leading-relaxed">

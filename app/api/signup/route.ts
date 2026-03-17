@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(
-      { success: true, message: "You've been added to the Bodha Setu waitlist!", data },
+      { success: true, message: "You've been added to the Glint IQ waitlist!", data },
       { status: 201 }
     );
   } catch (error) {

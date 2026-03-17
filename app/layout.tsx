@@ -7,9 +7,9 @@ import { LenisProvider } from "@/components/LenisProvider";
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 export const metadata: Metadata = {
-  title: "Bodha Setu — AI-Powered Student Intelligence Platform by visiontriX AI",
+  title: "Glint IQ — AI-Powered Student Intelligence Platform by visiontriX AI",
   description:
-    "Bodha Setu transforms classrooms with real-time engagement intelligence. Track student attention, detect learning gaps early, and enable AI-driven academic interventions at scale.",
+    "Glint IQ transforms classrooms with real-time engagement intelligence. Track student attention, detect learning gaps early, and enable AI-driven academic interventions at scale.",
   keywords: [
     "AI education",
     "student monitoring",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     apple: "/visiontrix_logo.png",
   },
   openGraph: {
-    title: "Bodha Setu — Where AI Understands Learning",
+    title: "Glint IQ — Where AI Understands Learning",
     description:
       "AI-powered student monitoring and academic intelligence platform for educational institutions.",
     type: "website",

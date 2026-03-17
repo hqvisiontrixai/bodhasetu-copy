@@ -364,7 +364,7 @@ export default function HeroSection() {
             className="flex items-center gap-2 mb-8"
           >
 
-            <div className="inline-flex items-center text-6xl font-medium text-[#C9A96E] uppercase mb-6">
+            <div className="inline-flex items-center text-6xl font-bold text-[#C9A96E] uppercase">
                    <div className="ea-panel-brand">
             <span className="ea-brand-dot" />
 visiontriX AI · Early Access          </div>
@@ -380,7 +380,7 @@ visiontriX AI · Early Access          </div>
             className="font-display font-black leading-[0.92] tracking-tight mb-6"
             style={{ fontSize: "clamp(3rem, 6vw, 4.8rem)" }}
           >
-            <span className="text-cream ">Bodha Setu</span>
+            <span className="text-cream ">Glint IQ</span>
             <span className="block text-gradient-gold mt-1"> </span>
             <span className="block text-[#B76A32] font-light text-[0.6em] mt-3 tracking-normal leading-snug">
               Insights. <span className="italic">Redefined.</span>
@@ -392,9 +392,9 @@ visiontriX AI · Early Access          </div>
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.38 }}
-            className="text-[#AC9F91] text-base md:text-lg leading-relaxed mb-10 max-w-xl"
+            className="text-white/90 text-base md:text-lg leading-relaxed mb-10 max-w-xl"
           >
-            Real-time computer vision observes, interprets, and surfaces the insights hidden in plain sight.
+            <span className="italic font-bold">Bridging </span>  classroom signals to actionable learning insights through AI‑powered computer vision.
           </motion.p>
 
           {/* CTA row */}
