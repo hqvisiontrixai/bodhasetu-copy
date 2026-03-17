@@ -1,9 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
 interface SlideInButtonProps {
   text?: string;
@@ -22,63 +20,41 @@ export default function SlideInButton({
   disabled = false,
   fullWidth = false,
 }: SlideInButtonProps) {
-  const [isHovered, setIsHovered] = useState(false);
-
   const content = (
-    <motion.div
-      className={`relative flex items-center justify-center overflow-hidden rounded-full py-[14px] px-[26px] ${fullWidth ? 'w-full' : ''}`}
-      onHoverStart={() => !disabled && setIsHovered(true)}
-      onHoverEnd={() => !disabled && setIsHovered(false)}
-      initial="rest"
-      animate={isHovered && !disabled ? "hover" : "rest"}
+    <div
+      className={`group relative flex items-center justify-center overflow-hidden rounded-full py-[14px] px-[26px] transition-colors duration-500 ${fullWidth ? 'w-full' : ''}`}
       style={{
         backgroundColor: "#B76A32",
         border: "1px solid rgba(183, 106, 50, 0.4)",
         opacity: disabled ? 0.6 : 1,
       }}
-      whileHover={!disabled ? { borderColor: "rgba(255, 255, 255, 0.1)" } : {}}
     >
-      <motion.div
-        className="absolute left-1/2 bottom-[-8px] z-0 h-[8px] w-[8px] -translate-x-1/2 rounded-full"
+      {/* Expanding background circle on hover */}
+      <div
+        className="absolute left-1/2 bottom-[-8px] z-0 h-[8px] w-[8px] -translate-x-1/2 rounded-full transition-transform duration-500 ease-out group-hover:scale-[50]"
         style={{ backgroundColor: "#111" }}
-        variants={{
-          rest: { scale: 1 },
-          hover: { scale: 50 },
-        }}
-        transition={{ type: "spring", bounce: 0.1, duration: 0.5 }}
       />
       
+      {/* Invisible spacer to reserve width */}
       <div className="invisible flex items-center gap-2 text-sm font-semibold tracking-wide h-[19px]">
         <span>{text}</span>
         <ArrowRight className="h-4 w-4" />
       </div>
 
-      <motion.div
-        className="absolute z-10 flex items-center gap-2 pr-[12px]"
-        variants={{
-          rest: { x: 12 },
-          hover: { x: 0 },
-        }}
-        transition={{ type: "spring", bounce: 0.1, duration: 0.5 }}
-      >
+      {/* Button Content */}
+      <div className="absolute z-10 flex items-center gap-2 pr-[12px] transition-transform duration-500 ease-out translate-x-[12px] group-hover:translate-x-0">
         <span className="text-sm font-semibold tracking-wide text-[#FFFFFF] whitespace-nowrap">
           {text}
         </span>
-        <motion.div
-          variants={{
-            rest: { opacity: 0, x: 20, color: "#FFFFFF" },
-            hover: { opacity: 1, x: 0, color: "#FFFFFF" },
-          }}
-          transition={{ type: "spring", bounce: 0.1, duration: 0.5 }}
-        >
+        <div className="opacity-0 translate-x-5 transition-all duration-500 ease-out text-white group-hover:opacity-100 group-hover:translate-x-0">
           {disabled ? (
              <span className="ea-spinner w-4 h-4 rounded-full border-2 border-white/20 border-t-white animate-spin block" />
           ) : (
             <ArrowRight className="h-4 w-4" />
           )}
-        </motion.div>
-      </motion.div>
-    </motion.div>
+        </div>
+      </div>
+    </div>
   );
 
   if (href && !onClick && type !== "submit") {

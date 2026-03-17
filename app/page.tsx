@@ -1,6 +1,6 @@
 import AnimatedBackground from "@/components/AnimatedBackground";
 import HeroSection from "@/components/HeroSection";
-import FeaturesSection from "@/components/FeaturesSection";
+import DynamicFeatures from "@/components/DynamicFeatures";
 import Footer from "@/components/Footer";
 import Form from "@/components/Form";
 
@@ -19,7 +19,7 @@ export default function Home() {
         <div className="h-px bg-gradient-to-r from-transparent via-[#A27B3D]/20 to-transparent mx-6 md:mx-20" />
 
         {/* Features: 7 Intelligence Layers */}
-        <FeaturesSection />
+        <DynamicFeatures />
 
         {/* Divider */}
         <div className="h-px bg-gradient-to-r from-transparent via-[#B76A32]/20 to-transparent mx-6 md:mx-20" />
