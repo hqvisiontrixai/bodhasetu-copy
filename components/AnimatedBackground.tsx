@@ -58,25 +58,42 @@ export default function AnimatedBackground() {
       particles.push(p);
     }
 
+    // Pre-render the massive background blobs to offscreen canvases
+    const blobCache = [
+      { r: 380, color: "rgba(162, 123, 61, 0.07)", canvas: document.createElement("canvas") },
+      { r: 320, color: "rgba(183, 106, 50, 0.06)", canvas: document.createElement("canvas") },
+      { r: 280, color: "rgba(45, 83, 81, 0.08)", canvas: document.createElement("canvas") },
+      { r: 200, color: "rgba(198, 67, 32, 0.04)", canvas: document.createElement("canvas") },
+    ];
+    blobCache.forEach(b => {
+      b.canvas.width = b.r * 2;
+      b.canvas.height = b.r * 2;
+      const bCtx = b.canvas.getContext("2d");
+      if (bCtx) {
+        const grad = bCtx.createRadialGradient(b.r, b.r, 0, b.r, b.r, b.r);
+        grad.addColorStop(0, b.color);
+        grad.addColorStop(1, "transparent");
+        bCtx.fillStyle = grad;
+        bCtx.beginPath();
+        bCtx.arc(b.r, b.r, b.r, 0, Math.PI * 2);
+        bCtx.fill();
+      }
+    });
+
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       time += 0.005;
 
-      const blobs = [
-        { x: canvas.width * 0.15 + Math.sin(time * 0.7) * 60, y: canvas.height * 0.25 + Math.cos(time * 0.5) * 40, r: 380, color: "rgba(162, 123, 61, 0.07)" },
-        { x: canvas.width * 0.75 + Math.cos(time * 0.6) * 70, y: canvas.height * 0.35 + Math.sin(time * 0.4) * 50, r: 320, color: "rgba(183, 106, 50, 0.06)" },
-        { x: canvas.width * 0.5  + Math.sin(time * 0.3) * 50, y: canvas.height * 0.7  + Math.cos(time * 0.45) * 35, r: 280, color: "rgba(45, 83, 81, 0.08)" },
-        { x: canvas.width * 0.85 + Math.cos(time * 0.8) * 45, y: canvas.height * 0.8  + Math.sin(time * 0.55) * 30, r: 200, color: "rgba(198, 67, 32, 0.04)" },
+      const positions = [
+        { x: canvas.width * 0.15 + Math.sin(time * 0.7) * 60, y: canvas.height * 0.25 + Math.cos(time * 0.5) * 40 },
+        { x: canvas.width * 0.75 + Math.cos(time * 0.6) * 70, y: canvas.height * 0.35 + Math.sin(time * 0.4) * 50 },
+        { x: canvas.width * 0.5  + Math.sin(time * 0.3) * 50, y: canvas.height * 0.7  + Math.cos(time * 0.45) * 35 },
+        { x: canvas.width * 0.85 + Math.cos(time * 0.8) * 45, y: canvas.height * 0.8  + Math.sin(time * 0.55) * 30 },
       ];
 
-      blobs.forEach((blob) => {
-        const grad = ctx.createRadialGradient(blob.x, blob.y, 0, blob.x, blob.y, blob.r);
-        grad.addColorStop(0, blob.color);
-        grad.addColorStop(1, "transparent");
-        ctx.fillStyle = grad;
-        ctx.beginPath();
-        ctx.arc(blob.x, blob.y, blob.r, 0, Math.PI * 2);
-        ctx.fill();
+      positions.forEach((pos, i) => {
+        const b = blobCache[i];
+        ctx.drawImage(b.canvas, pos.x - b.r, pos.y - b.r);
       });
 
       if (Math.random() < 0.4 && particles.length < 120) particles.push(createParticle());
@@ -105,9 +122,13 @@ export default function AnimatedBackground() {
       animationId = requestAnimationFrame(draw);
     };
 
-    draw();
+    // Defer the heavy animation start to prioritize LCP
+    const timeoutId = setTimeout(() => {
+      draw();
+    }, 800);
 
     return () => {
+      clearTimeout(timeoutId);
       cancelAnimationFrame(animationId);
       ro.disconnect();
     };

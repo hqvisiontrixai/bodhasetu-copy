@@ -347,7 +347,7 @@ export default function Form() {
 
 // ─── Styles ───────────────────────────────────────────────────────────────────
 const STYLES = `
-  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+  /* Fonts are loaded via local next/font/google in layout.tsx */
 
   .ea-root {
     width: 100%;

@@ -33,6 +33,7 @@ const config: Config = {
         "float": "float 6s ease-in-out infinite",
         "glow": "glow 2s ease-in-out infinite alternate",
         "spin-slow": "spin 20s linear infinite",
+        "fade-in-up": "fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
       },
       keyframes: {
         gradientShift: {
@@ -46,6 +47,10 @@ const config: Config = {
         glow: {
           "0%": { boxShadow: "0 0 20px rgba(162, 123, 61, 0.3)" },
           "100%": { boxShadow: "0 0 40px rgba(162, 123, 61, 0.7)" },
+        },
+        fadeInUp: {
+          "0%": { opacity: "0", transform: "translateY(24px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
         },
       },
       backgroundSize: {
