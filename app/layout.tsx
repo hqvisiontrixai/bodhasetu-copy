@@ -3,6 +3,7 @@ import "./globals.css";
 import { Inter, Outfit } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { LenisProvider } from "@/components/LenisProvider";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
 const outfit = Outfit({ subsets: ['latin'], variable: '--font-outfit', display: 'swap' });
@@ -46,6 +47,7 @@ export default function RootLayout({
         <LenisProvider>
         {children}
         </LenisProvider>
+        <Analytics />
       </body>
     </html>
   );
