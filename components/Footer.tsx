@@ -1,4 +1,5 @@
 "use client";
+import Image from "next/image";
 
 export default function SegmintFooter() {
   return (
@@ -33,6 +34,52 @@ export default function SegmintFooter() {
           >
             Let's talk →
           </a>
+
+          {/* Social Links */}
+          <div className="flex items-center gap-5 mt-4">
+            <a 
+              href="https://instagram.com/visiontrixai" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:opacity-70 transition-opacity flex items-center justify-center"
+            >
+              <Image 
+                src="/instagram.png" 
+                alt="Instagram" 
+                width={18} 
+                height={18} 
+                className="invert opacity-90" 
+              />
+            </a>
+            <a 
+              href="https://www.linkedin.com/company/visiontrix-ai/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:opacity-70 transition-opacity flex items-center justify-center cursor-pointer"
+            >
+              <Image 
+                src="/linkedin.png" 
+                alt="LinkedIn" 
+                width={18} 
+                height={18} 
+                className="invert opacity-90" 
+              />
+            </a>
+            <a 
+              href="https://x.com/VisiontriXAI" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="hover:opacity-70 transition-opacity flex items-center justify-center cursor-pointer"
+            >
+              <Image 
+                src="/twitter.png" 
+                alt="Twitter" 
+                width={18} 
+                height={18} 
+                className="invert opacity-90" 
+              />
+            </a>
+          </div>
         </nav>
 
       </div>
