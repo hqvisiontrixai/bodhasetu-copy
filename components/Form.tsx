@@ -1,18 +1,10 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js";
+// import { createClient } from "@supabase/supabase-js";
 import SlideInButton from "./SlideInButton";
 
 // ─── Supabase client (lazy) ───────────────────────────────────────────────────
-// Created on demand so a missing env var doesn't crash the page at load time.
-function getSupabase() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !key || url.includes("placeholder")) {
-    throw new Error("Supabase is not configured. Please add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY to .env.local");
-  }
-  return createClient(url, key);
-}
+// Removed direct Supabase client to increase security and prevent API key exposure
 type Role = "student" | "teacher" | "admin";
 const ROLES: { value: Role; label: string; icon: string }[] = [
   { value: "student", label: "Student", icon: "📚" },
@@ -86,8 +78,7 @@ export default function Form() {
   const [focused, setFocused] = useState<string | null>(null);
   const [sectorOpen, setSectorOpen] = useState(false);
   const [referralOpen, setReferralOpen] = useState(false);
-  const [Error, setError] = useState("");
-
+  const [formError, setFormError] = useState("");
 
   const validate = (): boolean => {
     const e: Partial<FormData> = {};
@@ -105,38 +96,41 @@ export default function Form() {
     if (!validate()) return;
     setLoading(true);
     try {
-      const supabase = getSupabase();
-      const { data, error } = await supabase
-        .from("early_access_signups")
-        .insert([{
-          full_name:       form.full_name.trim(),
-          email:           form.email.trim().toLowerCase(),
-          institution:    form.institution.trim(),
-          referral_source: form.referral_source,
-          role:           form.role,
-          created_at:      new Date().toISOString(),
-        }])
-        .select("id")
-        .single();
-        console.log("SUPABASE RESPONSE:", { data, error });
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      if (!supabaseUrl) {
+        throw new Error("Supabase URL not configured");
+      }
 
+      const res = await fetch(
+        `${supabaseUrl}/functions/v1/early-access-signup`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            full_name: form.full_name,
+            email: form.email,
+            institution: form.institution,
+            referral_source: form.referral_source,
+            role: form.role,
+          }),
+        }
+      );
 
-      if (error) throw error;
+      const responseData = await res.json();
 
-      // Get queue position
-      const { count } = await supabase
-        .from("early_access_signups")
-        .select("*", { count: "exact", head: true });
+      if (!res.ok) {
+        throw new Error(responseData.error || "Something went wrong.");
+      }
 
-      setQueueNum(count ?? 1);
+      setQueueNum(responseData.count ?? 1);
       setSubmitted(true);
     } catch (err: any) {
-      console.error("Supabase insert error:", err);
+      console.error("Signup error:", err);
       // Handle duplicate email gracefully
-      if (err?.code === "23505") {
+      if (err.message?.includes("already registered")) {
         setErrors({ email: "This email is already registered!" });
       } else {
-        setErrors({ email: "Something went wrong. Please try again." });
+        setErrors({ email: err.message || "Something went wrong. Please try again." });
       }
     } finally {
       setLoading(false);

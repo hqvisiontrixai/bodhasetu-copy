@@ -1,0 +1,11 @@
+{
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.tsserver.pluginPaths": [],
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.tsc.autoDetect": "on",
+  "files.exclude": {
+    "supabase/**": false
+  }
+}

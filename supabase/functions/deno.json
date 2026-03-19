@@ -1,0 +1,16 @@
+{
+  "imports": {
+    "https://": "https://"
+  },
+  "tasks": {
+    "check": "deno check --all index.ts"
+  },
+  "compilerOptions": {
+    "lib": ["deno.window"],
+    "allowJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "checkJs": false
+  }
+}

@@ -4,11 +4,13 @@ import { supabase } from "@/lib/supabase";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { name, email, institution, role } = body;
+    const { name, full_name, email, institution, referral_source, role } = body;
+    
+    const finalName = full_name || name;
 
-    if (!name || !email || !institution || !role) {
+    if (!finalName || !email || !institution || !role) {
       return NextResponse.json(
-        { error: "All fields are required" },
+        { error: "Name, email, institution, and role are required" },
         { status: 400 }
       );
     }
@@ -23,23 +25,36 @@ export async function POST(request: Request) {
     }
 
     const { data, error } = await supabase
-      .from("waitlist")
-      .insert([{ name, email, institution, role }])
-      .select();
+      .from("early_access_signups")
+      .insert([{ 
+        full_name: finalName.trim(), 
+        email: email.trim().toLowerCase(), 
+        institution: institution.trim(), 
+        referral_source: referral_source || "",
+        role,
+        created_at: new Date().toISOString() // We can provide this manually, though default is usually set
+      }])
+      .select("id")
+      .single();
 
     if (error) {
       // Handle duplicate email
       if (error.code === "23505") {
         return NextResponse.json(
-          { error: "This email is already on the waitlist!" },
+          { error: "This email is already registered!" },
           { status: 409 }
         );
       }
       throw error;
     }
 
+    // Get queue position
+    const { count } = await supabase
+      .from("early_access_signups")
+      .select("*", { count: "exact", head: true });
+
     return NextResponse.json(
-      { success: true, message: "You've been added to the Glint IQ waitlist!", data },
+      { success: true, count, data },
       { status: 201 }
     );
   } catch (error) {
